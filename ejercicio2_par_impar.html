@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ejercicio 2 - Par o Impar</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f0fff4;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    .badge {
+      display: inline-block;
+      background: #eaf3de;
+      color: #3b6d11;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    h1 { font-size: 1.3rem; font-weight: 600; color: #1a2e1a; margin-bottom: 6px; }
+    p { font-size: 13px; color: #777; margin-bottom: 1.5rem; }
+    label { display: block; font-size: 13px; font-weight: 500; color: #444; margin-bottom: 6px; }
+    input {
+      width: 100%; padding: 10px 14px;
+      font-size: 15px; border: 1.5px solid #e0e0e0;
+      border-radius: 10px; outline: none;
+      transition: border-color 0.2s;
+      color: #1a2e1a;
+    }
+    input:focus { border-color: #639922; }
+    button {
+      margin-top: 16px; width: 100%;
+      padding: 11px; font-size: 15px; font-weight: 600;
+      background: #3b6d11; color: #fff;
+      border: none; border-radius: 10px;
+      cursor: pointer; transition: background 0.2s, transform 0.1s;
+    }
+    button:hover { background: #4a8515; }
+    button:active { transform: scale(0.98); }
+    .result {
+      margin-top: 16px; padding: 14px 16px;
+      border-left: 4px solid #639922;
+      border-radius: 8px; font-size: 22px;
+      font-weight: 700; text-align: center;
+      display: none; letter-spacing: 0.02em;
+    }
+    .par { background: #eaf3de; color: #3b6d11; border-color: #639922; }
+    .impar { background: #faeeda; color: #854f0b; border-color: #ef9f27; }
+    .sub { font-size: 13px; font-weight: 400; color: #888; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">Ejercicio 2</span>
+    <h1>Par o Impar</h1>
+    <p>Ingresa un número entero y descubre si es par o impar.</p>
+    <label for="numero">Número entero</label>
+    <input type="number" id="numero" placeholder="Ej: 7" step="1" />
+    <button onclick="verificar()">Verificar</button>
+    <div class="result" id="resultado">
+      <div id="texto"></div>
+      <div class="sub" id="subtexto"></div>
+    </div>
+  </div>
+
+  <script>
+    function verificar() {
+      const n = parseInt(document.getElementById('numero').value);
+      const res = document.getElementById('resultado');
+      const texto = document.getElementById('texto');
+      const sub = document.getElementById('subtexto');
+      if (isNaN(n)) {
+        res.className = 'result impar';
+        res.style.display = 'block';
+        texto.textContent = 'Número inválido';
+        sub.textContent = 'Ingresa un número entero.';
+        return;
+      }
+      const esPar = n % 2 === 0;
+      res.style.display = 'block';
+      res.className = 'result ' + (esPar ? 'par' : 'impar');
+      texto.textContent = esPar ? 'Par' : 'Impar';
+      sub.textContent = esPar
+        ? `${n} ÷ 2 = ${n / 2} (resto 0)`
+        : `${n} ÷ 2 tiene resto 1`;
+    }
+
+    document.getElementById('numero').addEventListener('keydown', e => {
+      if (e.key === 'Enter') verificar();
+    });
+  </script>
+</body>
+</html>
